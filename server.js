@@ -4,6 +4,13 @@ var	fs = require('fs'),
 		format = util.format,
 		exec = require('child_process').exec;
 
+// Create an uploads directory if necessary
+fs.lstat('./uploads', function(err, stats) {
+	if (err || !stats.isDirectory()) {
+		fs.mkdir('./uploads');
+	}
+});
+		
 var app = express.createServer(
 	express.bodyParser({uploadDir: './uploads'})
 );
